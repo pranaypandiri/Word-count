@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Counter App</title>
+  <style>
+    .word-counter-box {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .text-area {
+      width: 100%;
+      resize: vertical;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+  <script type="text/babel">
+    const { useState } = React;
+    const { render } = ReactDOM;
+
+    function WordCounter() {
+      const [text, setText] = useState('');
+
+      const updateWordCount = () => {
+        const words = text.split(/\s+/).filter(word => word !== '');
+        return words.length;
+      };
+
+      return (
+        <div className="word-counter-box">
+          <h2>Responsive Word Counter</h2>
+          <div className="word-counter">
+            <textarea
+              className="text-area"
+              placeholder="Type or paste your text here..."
+              rows="10"
+              onChange={(e) => setText(e.target.value)}
+              value={text}
+            ></textarea>
+            <p>Word Count: {updateWordCount()}</p>
+          </div>
+        </div>
+      );
+    }
+
+    render(
+      <WordCounter />,
+      document.getElementById('root')
+    );
+  </script>
+</body>
+</html>
